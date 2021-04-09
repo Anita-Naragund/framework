@@ -1,0 +1,27 @@
+package com.xworkz.food.repository;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import com.xworkz.food.entity.FoodItemEntity;
+
+public class FoodItemRepositoryImpl implements FoodItemRepository{
+	private SessionFactory factory;
+	
+	public FoodItemRepositoryImpl(SessionFactory factory) {
+		this.factory=factory;
+	}
+
+	@Override
+	public void save(FoodItemEntity entity) {
+		System.out.println("invoked save");
+		System.out.println("entity :"+entity);
+		Session session=factory.openSession();
+		session.beginTransaction();
+		session.save(entity);
+		session.getTransaction().commit();
+		session.close();
+		factory.close();
+		
+	}
+
+}
